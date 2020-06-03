@@ -13,28 +13,33 @@ class Test(mglw.WindowConfig):
         self.prog = self.ctx.program(
             vertex_shader='''
                 #version 330
-                in vec2 in_vert;
+                in vec2 a_position;
+                in float a_t;
+                out float v_t;
                 void main() {
-                    gl_Position = vec4(in_vert, 0.0, 1.0);
+                    v_t=a_t
+                    gl_Position = vec4(a_position, 0.0, 1.0);
                 }
             ''',
             fragment_shader='''
                 #version 330
-                out vec4 f_color;
+                in float v_t;
+                out vec4 o_color;
                 void main() {
-                    f_color = vec4(0.0, 0.0, 1.0, 1.0);
+                    o_color = vec4(sin(v_t*62.83), 0.0, 0.0, 1.0);
                 }
             ''',
         )
 
         vertices = np.array([
-            0.0, 0.8,
-            -0.6, -0.8,
-            0.6, -0.8,
+            0.5, 0.5,
+            -0.5, -0.5,
+            0.5, -0.5,
+            -0.5, 0.5
         ])
 
         self.vbo = self.ctx.buffer(vertices.astype('f4').tobytes())
-        self.vao = self.ctx.simple_vertex_array(self.prog, self.vbo, 'in_vert')
+        self.vao = self.ctx.simple_vertex_array(self.prog, self.vbo, 'in_vert', 'in_color')
 
     def render(self, time, frametime):
         self.ctx.clear(0.0, 0.0, 0.0, 1.0)
