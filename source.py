@@ -1,8 +1,7 @@
-import moderngl
 import moderngl_window as mglw
 import numpy as np
 
-ctx = moderngl.create_standalone_context()
+
 class Test(mglw.WindowConfig):
     gl_version = (3, 3)
     window_size = (800, 600)
@@ -33,9 +32,9 @@ class Test(mglw.WindowConfig):
                 
                 void main()
                 {
-                    float r = v_color.r-0.5;
-                    float g = v_color.g-0.5;
-                    out_color = vec4(sin((r*r+g*g)*100), 0.0, 0.0, 0.0);
+                    float r = v_color.r;
+                    float g = v_color.g;
+                    out_color = vec4(tan((sin(g*30)+r*20)*5), 0.0, 0.0, 0.0);
                 }
                 ''',
         )
