@@ -33,16 +33,17 @@ class Test(mglw.WindowConfig):
                 
                 void main()
                 {
-                    float r = v_color.r;
-                    out_color = vec4(sin(r * 62.83), 0.0, 0.0, 0.0);
+                    float r = v_color.r-0.5;
+                    float g = v_color.g-0.5;
+                    out_color = vec4(sin((r*r+g*g)*100), 0.0, 0.0, 0.0);
                 }
                 ''',
         )
 
         vertices = np.array([
             0.5, 0.5, 1.0, 0.0, 0.0,
-            -0.5, 0.5, 1.0, 0.0, 0.0,
-            -0.5, -0.5, 0.0, 0.0, 0.0,
+            -0.5, 0.5, 1.0, 1.0, 0.0,
+            -0.5, -0.5, 0.0, 1.0, 0.0,
             0.5, -0.5, 0.0, 0.0, 0.0,
         ])
 
